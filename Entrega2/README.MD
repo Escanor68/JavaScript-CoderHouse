@@ -19,12 +19,12 @@ Este proyecto es una mejora del simulador de préstamos de la Entrega 1, ahora i
 - Se muestra un historial de simulaciones.
 - Posibilidad de borrar el historial.
 
-## 🗂 Estructura
+## 📁 Estructura del proyecto
 
-Entregable2Grebosz/
-├── index.html
+Entrega2/
+├── index.html                # Archivo principal HTML de la app
 ├── css/
-│   └── styles.css
+│   └── styles.css            # Hoja de estilos para el simulador
 ├── js/
-│   └── simulador.js
-└── README.md
+│   └── simulador.js          # Lógica principal en JavaScript
+└── README.md                 # Este archivo con instrucciones y documentación
