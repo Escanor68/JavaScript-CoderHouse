@@ -72,8 +72,6 @@ EntregaFinal/
 
 ```bash
 npm run dev      # Inicia el servidor de desarrollo
-npm run build    # Construye la versión de producción
-npm run preview  # Previsualiza la versión de producción
 ```
 
 ## 📊 Datos del Simulador
@@ -211,23 +209,8 @@ npm run preview  # Previsualiza la versión de producción
    - Diseño responsive
    - Animaciones y efectos visuales
 
-## 🚀 Despliegue
-
-### Para Producción
-```bash
-npm run build
-```
-Los archivos optimizados se generarán en la carpeta `dist/`.
-
-### Para GitHub Pages
-1. Ejecutar `npm run build`
-2. Subir el contenido de `dist/` a la rama `gh-pages`
-3. Configurar GitHub Pages en el repositorio
-
 ## 📝 Notas del Desarrollador
 
-- **Comentarios**: Todos los comentarios están en español argentino para mayor naturalidad
-- **Estructura**: El proyecto sigue las mejores prácticas de desarrollo moderno
 - **Modularidad**: Cada archivo tiene una responsabilidad específica
 - **Escalabilidad**: Fácil de extender con nuevas funcionalidades
 
