@@ -341,6 +341,4 @@ class Utils {
 }
 
 // Exportar para que los otros módulos lo puedan usar
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { Utils };
-} 
+export { Utils }; 

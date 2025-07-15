@@ -3,7 +3,7 @@
  * Archivo JSON con todos los datos estáticos del e-commerce
  */
 
-// Datos simulados del e-commerce
+// Datos simulados del e-commerce (base de datos local)
 const ecommerceData = {
     // Información del usuario
     user: {
@@ -219,7 +219,5 @@ const ecommerceData = {
     ]
 };
 
-// Exportar datos para uso en otros módulos
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { ecommerceData };
-} 
+// Exportar datos para que los otros módulos los puedan usar
+export { ecommerceData }; 

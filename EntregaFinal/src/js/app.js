@@ -7,6 +7,10 @@
  * - utils.js: Funciones auxiliares
  */
 
+// Importar dependencias
+import { ecommerceData } from './data.js';
+import { Utils } from './utils.js';
+
 // Estado global de la aplicación (donde guardamos todo lo que pasa)
 class AppState {
     constructor() {
@@ -577,7 +581,7 @@ class TechStoreApp {
     }
 
     saveProfile() {
-        // Validar datos del formulario
+        // Verificar datos del formulario
         const formData = Utils.getProfileFormData();
         
         if (!formData.firstName || formData.firstName.trim().length < 2) {
@@ -635,7 +639,7 @@ class TechStoreApp {
     }
 }
 
-// Inicializar la aplicación cuando el DOM esté listo
+// Arrancar la aplicación cuando la página esté lista
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new TechStoreApp();
 }); 

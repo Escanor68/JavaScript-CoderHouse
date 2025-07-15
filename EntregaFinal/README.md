@@ -1,195 +1,244 @@
 # TechStore - Simulador de E-commerce
-## Proyecto Final JavaScript CoderHouse
 
-### 📋 Descripción del Proyecto
+## 📋 Descripción
 
-TechStore es un simulador completo de e-commerce desarrollado en JavaScript puro que demuestra las capacidades avanzadas del lenguaje y las mejores prácticas de desarrollo web. El proyecto simula una tienda online de tecnología con funcionalidades completas de compra y gestión de pedidos.
+**TechStore** es un simulador interactivo de e-commerce desarrollado completamente en JavaScript vanilla como proyecto final para el curso de JavaScript en CoderHouse. El proyecto demuestra el uso de módulos ES6, librerías externas, y una arquitectura modular bien estructurada.
 
-### 🎯 Objetivos Cumplidos
+## ✨ Características
 
-#### ✅ Objetivos Generales
-- [x] Crear un simulador interactivo funcional
-- [x] Implementar lógica de negocio completa
-- [x] Desarrollar interfaz de usuario moderna y responsiva
+### 🛍️ Funcionalidades del E-commerce
+- **Catálogo de productos** con categorías y filtros
+- **Carrito de compras** con persistencia en localStorage
+- **Proceso de checkout** completo con validaciones
+- **Gestión de pedidos** con historial
+- **Perfil de usuario** con estadísticas
+- **Sistema de filtros** por precio y categoría
+- **Productos destacados** en la página principal
 
-#### ✅ Objetivos Específicos
-- [x] **Utilizar datos remotos simulados con JSON**: Catálogo completo de productos, categorías y pedidos
-- [x] **HTML interactivo generado desde JS**: Toda la interfaz se construye dinámicamente
-- [x] **Uso de librerías externas**: Bootstrap 5, SweetAlert2, Font Awesome
-- [x] **100% funcional**: Proceso completo de compra implementado
-- [x] **Lógica de negocio completa**: Carrito, checkout, gestión de pedidos, perfil de usuario
+### 🛠️ Tecnologías y Librerías
+- **JavaScript ES6+** con módulos nativos
+- **Bootstrap 5** para el diseño responsive
+- **SweetAlert2** para alertas modernas
+- **Font Awesome** para iconografía
+- **Vite** como bundler y servidor de desarrollo
+- **npm** para gestión de dependencias
 
-### 🚀 Funcionalidades Implementadas
-
-#### 🛍️ Catálogo de Productos
-- **6 categorías** de productos (Laptops, Smartphones, Tablets, Accesorios, Gaming, Audio)
-- **12 productos** con información detallada (precio, descripción, stock, rating)
-- **Filtros avanzados** por precio y categoría
-- **Búsqueda y navegación** intuitiva
-
-#### 🛒 Sistema de Carrito
-- **Agregar/eliminar productos** con controles de cantidad
-- **Persistencia local** usando localStorage
-- **Cálculo automático** de subtotal, envío e IVA
-- **Resumen de compra** en tiempo real
-
-#### 💳 Proceso de Checkout
-- **Formulario de envío** con datos precargados
-- **Múltiples métodos de pago** (Tarjeta de crédito, débito, transferencia)
-- **Validación de datos** y confirmación de pedido
-- **Simulación de procesamiento** de pago
-
-#### 📦 Gestión de Pedidos
-- **Historial completo** de pedidos realizados
-- **Estados de pedido** (Pendiente, Completado, Cancelado)
-- **Detalles de envío** y productos incluidos
-- **Estadísticas de compra**
-
-#### 👤 Perfil de Usuario
-- **Información personal** editable
-- **Estadísticas de compra** (total de pedidos, monto gastado)
-- **Gestión de sesión** con logout
-
-### 🛠️ Tecnologías Utilizadas
-
-#### Frontend
-- **HTML5**: Estructura semántica y accesible
-- **CSS3**: Estilos modernos con variables CSS y animaciones
-- **JavaScript ES6+**: Programación orientada a objetos y funcional
-
-#### Librerías Externas
-- **Bootstrap 5.3.0**: Framework CSS para diseño responsivo
-- **SweetAlert2**: Librería de alertas modernas (reemplaza alert/prompt/confirm)
-- **Font Awesome 6.4.0**: Iconografía profesional
-
-#### Características Técnicas
-- **Programación Orientada a Objetos**: Clases AppState, TechStoreApp y Utils
-- **Arquitectura Modular**: Separación de responsabilidades en archivos específicos
-- **Manejo de Estado**: Gestión centralizada del estado de la aplicación
-- **Eventos DOM**: Captura y manejo de eventos de usuario
-- **LocalStorage**: Persistencia de datos del carrito
-- **JSON**: Datos simulados estructurados
-- **Funciones Utilitarias**: Reutilización de código común
-
-### 📁 Estructura del Proyecto
-
+### 📁 Estructura Modular
 ```
 EntregaFinal/
-├── index.html          # Página principal (389 líneas)
-├── css/
-│   └── styles.css      # Estilos personalizados (392 líneas)
-├── js/
-│   ├── data.js         # Datos JSON del simulador (200+ líneas)
-│   ├── utils.js        # Funciones auxiliares y utilidades (300+ líneas)
-│   └── app.js          # Lógica principal de la aplicación (400+ líneas)
-└── README.md           # Documentación del proyecto (190 líneas)
+├── src/
+│   ├── js/
+│   │   ├── data.js      # Datos JSON del simulador
+│   │   ├── utils.js     # Funciones auxiliares
+│   │   └── app.js       # Lógica principal de la aplicación
+│   ├── css/
+│   │   └── styles.css   # Estilos personalizados
+│   └── main.js          # Punto de entrada principal
+├── index.html           # Página principal
+├── package.json         # Configuración de npm
+├── vite.config.js       # Configuración de Vite
+└── README.md           # Documentación
 ```
 
-### 🎨 Diseño y UX
+## 🚀 Instalación y Uso
 
-#### Características de Diseño
-- **Diseño responsivo** que se adapta a todos los dispositivos
-- **Paleta de colores** profesional y accesible
-- **Tipografía** clara y legible
-- **Iconografía** consistente con Font Awesome
-- **Animaciones** suaves y profesionales
+### Prerrequisitos
+- Node.js (versión 14 o superior)
+- npm (incluido con Node.js)
 
-#### Experiencia de Usuario
-- **Navegación intuitiva** con breadcrumbs
-- **Feedback visual** inmediato en todas las acciones
-- **Estados de carga** y confirmaciones
-- **Mensajes de error** informativos
-- **Interfaz limpia** y moderna
+### Pasos de Instalación
 
-### 🔧 Criterios de Evaluación Cumplidos
+1. **Clonar o descargar el proyecto**
+   ```bash
+   git clone <url-del-repositorio>
+   cd EntregaFinal
+   ```
 
-#### ✅ Funcionalidad
-- **Flujo completo** de entrada-procesamiento-salida
-- **Sin errores de cómputo** en cálculos de precios
-- **Validaciones** en formularios y datos
+2. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
 
-#### ✅ Interactividad
-- **Inputs y eventos** adecuados en toda la aplicación
-- **Salidas coherentes** basadas en datos ingresados
-- **Visualización asíncrona** en HTML
+3. **Ejecutar en modo desarrollo**
+   ```bash
+   npm run dev
+   ```
 
-#### ✅ Escalabilidad
-- **Funciones con parámetros** para tareas específicas
-- **Objetos con propiedades y métodos** relevantes
-- **Arrays para agrupar valores** de forma dinámica
-- **Recorrido óptimo** de colecciones
+4. **Abrir en el navegador**
+   - El servidor se iniciará en `http://localhost:5173`
+   - Se abrirá automáticamente en tu navegador predeterminado
 
-#### ✅ Integridad
-- **Múltiples archivos JavaScript** (data.js, utils.js, app.js)
-- **Referenciados correctamente** desde HTML
-- **Información JSON** utilizada adecuadamente
-- **Carga asíncrona** de datos
-- **Arquitectura modular** con separación de responsabilidades
+### Scripts Disponibles
 
-#### ✅ Legibilidad
-- **Nombres significativos** para variables, funciones y objetos
-- **Instrucciones legibles** y bien estructuradas
-- **Comentarios oportunos** explicando la lógica
-- **Código ordenado** en declaración y secuencia
+```bash
+npm run dev      # Inicia el servidor de desarrollo
+npm run build    # Construye la versión de producción
+npm run preview  # Previsualiza la versión de producción
+```
 
-### 🚀 Cómo Ejecutar el Proyecto
+## 📊 Datos del Simulador
 
-1. **Clonar o descargar** el proyecto
-2. **Abrir** `index.html` en un navegador web moderno
-3. **Explorar** las funcionalidades del simulador
+### Productos Incluidos
+- **Laptops**: MacBook Pro, Dell XPS 13
+- **Smartphones**: iPhone 15 Pro, Samsung Galaxy S24
+- **Tablets**: iPad Pro, Samsung Galaxy Tab S9
+- **Accesorios**: AirPods Pro, Magic Keyboard
+- **Gaming**: PlayStation 5, Nintendo Switch OLED
+- **Audio**: Sony WH-1000XM5, Bose SoundLink Revolve
 
-### 📱 Compatibilidad
+### Categorías
+- 6 categorías principales con iconos y descripciones
+- Sistema de filtrado por categoría y precio
+- Productos destacados para la página principal
 
-- **Navegadores modernos**: Chrome, Firefox, Safari, Edge
-- **Dispositivos**: Desktop, tablet, móvil
-- **JavaScript ES6+** requerido
+## 🎯 Funcionalidades Destacadas
 
-### 🎯 Funcionalidades Destacadas
+### Carrito de Compras
+- ✅ Agregar/eliminar productos
+- ✅ Modificar cantidades
+- ✅ Persistencia en localStorage
+- ✅ Cálculo automático de totales
+- ✅ Aplicación de impuestos (IVA 21%)
+- ✅ Cálculo de envío (gratis en compras >$1000)
 
-#### Simulación Realista
-- **Proceso de compra completo** desde catálogo hasta confirmación
-- **Gestión de inventario** con stock de productos
-- **Cálculo de impuestos** (IVA 21%) y envío
-- **Historial de transacciones** persistente
+### Proceso de Checkout
+- ✅ Formulario de datos personales
+- ✅ Validación de campos obligatorios
+- ✅ Múltiples métodos de pago
+- ✅ Resumen detallado de la compra
+- ✅ Confirmación con SweetAlert2
 
-#### Interfaz Avanzada
-- **Generación dinámica** de contenido HTML
-- **Filtros interactivos** en tiempo real
-- **Carrito persistente** entre sesiones
-- **Alertas modernas** con SweetAlert2
+### Gestión de Pedidos
+- ✅ Historial completo de pedidos
+- ✅ Estados de pedido (pendiente, completado)
+- ✅ Detalles de productos y totales
+- ✅ Direcciones de envío
 
-#### Experiencia Completa
-- **6 secciones principales** (Inicio, Productos, Carrito, Checkout, Pedidos, Perfil)
-- **Navegación fluida** entre secciones
-- **Datos precargados** en formularios
-- **Validaciones** y confirmaciones
+### Perfil de Usuario
+- ✅ Información personal editable
+- ✅ Estadísticas de compras
+- ✅ Validación de datos
+- ✅ Persistencia de cambios
 
-### 📊 Datos del Simulador
+## 🔧 Arquitectura del Código
 
-#### Productos Incluidos
-- **MacBook Pro 14"** - $2,499.99
-- **Dell XPS 13** - $1,299.99
-- **iPhone 15 Pro** - $999.99
-- **Samsung Galaxy S24** - $899.99
-- **iPad Pro 12.9"** - $1,099.99
-- **Samsung Galaxy Tab S9** - $799.99
-- **AirPods Pro** - $249.99
-- **Magic Keyboard** - $99.99
-- **PlayStation 5** - $499.99
-- **Nintendo Switch OLED** - $349.99
-- **Sony WH-1000XM5** - $399.99
-- **Bose SoundLink Revolve** - $199.99
+### Módulos JavaScript
 
-#### Categorías
-- **Laptops**: Computadoras portátiles
-- **Smartphones**: Teléfonos inteligentes
-- **Tablets**: Dispositivos táctiles
-- **Accesorios**: Periféricos y complementos
-- **Gaming**: Productos para videojuegos
-- **Audio**: Sistemas de sonido
+#### `data.js`
+- Contiene todos los datos estáticos del simulador
+- Estructura JSON con productos, categorías, pedidos y usuario
+- Datos simulados realistas para demostración
 
-### 🏆 Conclusión
+#### `utils.js`
+- Clase `Utils` con métodos estáticos
+- Funciones de formateo, validación y cálculos
+- Integración con SweetAlert2 para alertas
+- Funciones auxiliares para el manejo de datos
 
-Este proyecto demuestra un dominio completo de JavaScript moderno, implementando todas las funcionalidades requeridas para un simulador de e-commerce funcional. La aplicación es escalable, mantenible y proporciona una experiencia de usuario profesional.
+#### `app.js`
+- Clase principal `TechStoreApp`
+- Gestión del estado global de la aplicación
+- Renderizado dinámico de todas las secciones
+- Manejo de eventos y navegación
 
-**Desarrollado para CoderHouse - Curso de JavaScript** 
+#### `main.js`
+- Punto de entrada de la aplicación
+- Importación de módulos y estilos
+- Inicialización de la aplicación
+
+### Características Técnicas
+
+#### Modularidad
+- Código organizado en módulos ES6
+- Separación clara de responsabilidades
+- Fácil mantenimiento y escalabilidad
+
+#### Persistencia
+- Uso de localStorage para el carrito
+- Datos del usuario persistentes
+- Estado de la aplicación mantenido
+
+#### Responsive Design
+- Diseño completamente responsive
+- Optimizado para móviles y tablets
+- Uso de Bootstrap 5 para grid system
+
+#### UX/UI
+- Interfaz moderna y intuitiva
+- Animaciones y transiciones suaves
+- Feedback visual para todas las acciones
+- Estados de carga y error manejados
+
+## 📱 Compatibilidad
+
+- ✅ Chrome (recomendado)
+- ✅ Firefox
+- ✅ Safari
+- ✅ Edge
+- ✅ Dispositivos móviles
+
+## 🎓 Criterios de Evaluación CoderHouse
+
+### ✅ Requisitos Cumplidos
+
+1. **Uso de datos JSON simulados**
+   - Datos completos en `data.js`
+   - Estructura JSON bien organizada
+
+2. **HTML generado dinámicamente desde JS**
+   - Todo el contenido se genera desde JavaScript
+   - Uso de template literals y DOM manipulation
+
+3. **Uso de librerías externas**
+   - Bootstrap 5 (CSS framework)
+   - SweetAlert2 (alertas)
+   - Font Awesome (iconos)
+
+4. **Lógica de negocio completa**
+   - Carrito de compras funcional
+   - Proceso de checkout completo
+   - Gestión de pedidos
+   - Sistema de filtros
+
+5. **Estructura y legibilidad**
+   - Código modular y bien organizado
+   - Comentarios en español argentino
+   - Nombres descriptivos de variables y funciones
+
+6. **Funcionalidades adicionales**
+   - Persistencia de datos
+   - Validaciones de formularios
+   - Diseño responsive
+   - Animaciones y efectos visuales
+
+## 🚀 Despliegue
+
+### Para Producción
+```bash
+npm run build
+```
+Los archivos optimizados se generarán en la carpeta `dist/`.
+
+### Para GitHub Pages
+1. Ejecutar `npm run build`
+2. Subir el contenido de `dist/` a la rama `gh-pages`
+3. Configurar GitHub Pages en el repositorio
+
+## 📝 Notas del Desarrollador
+
+- **Comentarios**: Todos los comentarios están en español argentino para mayor naturalidad
+- **Estructura**: El proyecto sigue las mejores prácticas de desarrollo moderno
+- **Modularidad**: Cada archivo tiene una responsabilidad específica
+- **Escalabilidad**: Fácil de extender con nuevas funcionalidades
+
+## 🤝 Contribuciones
+
+Este proyecto fue desarrollado como trabajo final para CoderHouse. Las contribuciones son bienvenidas para mejorar la funcionalidad o corregir errores.
+
+## 📄 Licencia
+
+Este proyecto es de uso educativo y fue desarrollado para el curso de JavaScript en CoderHouse.
+
+---
+
+**Desarrollado con ❤️ para CoderHouse** 
