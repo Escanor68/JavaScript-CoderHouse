@@ -21,7 +21,7 @@ class AppState {
             priceRange: 5000,
             categories: []
         };
-        this.user = ecommerceData.user;
+        this.user = null;
     }
 
     // Métodos para manejar el carrito de compras
@@ -177,7 +177,8 @@ class TechStoreApp {
         });
 
         document.getElementById('applyFilters')?.addEventListener('click', () => {
-            this.renderProducts();
+            const filteredProducts = appState.applyFilters();
+            this.renderProductsGrid(filteredProducts);
         });
 
         // Configurar eventos de checkout
@@ -241,11 +242,24 @@ class TechStoreApp {
     renderProducts() {
         appState.showSection('products');
         
+        // Si venimos desde una categoría, sincronizar filtro exclusivo
+        if (appState.currentCategory) {
+            appState.filters.categories = [appState.currentCategory];
+        }
+
         // Actualizar la navegación (breadcrumb)
         this.updateBreadcrumb();
         
         // Armar los filtros de categorías
         this.renderCategoryFilters();
+
+        // Sincronizar el slider con el estado actual
+        const priceInput = document.getElementById('priceRange');
+        const maxPriceLabel = document.getElementById('maxPrice');
+        if (priceInput && maxPriceLabel) {
+            priceInput.value = String(appState.filters.priceRange);
+            maxPriceLabel.textContent = Utils.formatPrice(appState.filters.priceRange);
+        }
         
         // Aplicar filtros y armar la grilla de productos
         const filteredProducts = appState.applyFilters();
@@ -280,25 +294,37 @@ class TechStoreApp {
 
         const filtersHTML = this.data.categories.map(category => `
             <div class="category-filter-item">
-                <input type="checkbox" id="cat-${category.id}" value="${category.id}">
+                <input type="checkbox" class="category-checkbox" id="cat-${category.id}" value="${category.id}">
                 <label for="cat-${category.id}">${category.name}</label>
             </div>
         `).join('');
 
         container.innerHTML = filtersHTML;
 
-        // Configurar los eventos de los checkboxes
+        // Marcar checkboxes según estado actual
         this.data.categories.forEach(category => {
             const checkbox = document.getElementById(`cat-${category.id}`);
             if (checkbox) {
-                checkbox.addEventListener('change', (e) => {
-                    if (e.target.checked) {
-                        appState.filters.categories.push(category.id);
-                    } else {
-                        appState.filters.categories = appState.filters.categories.filter(id => id !== category.id);
-                    }
-                });
+                checkbox.checked = appState.filters.categories.includes(category.id);
             }
+        });
+
+        // Permitir selección exclusiva de categorías (si el docente espera filtro intersección)
+        const checkboxes = container.querySelectorAll('.category-checkbox');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                const id = parseInt(e.target.value);
+                if (e.target.checked) {
+                    // Dejar solo esa categoría seleccionada
+                    appState.filters.categories = [id];
+                    // Desmarcar el resto visualmente
+                    checkboxes.forEach(other => {
+                        if (other !== e.target) other.checked = false;
+                    });
+                } else {
+                    appState.filters.categories = [];
+                }
+            });
         });
     }
 
@@ -531,7 +557,7 @@ class TechStoreApp {
         const container = document.getElementById('ordersContainer');
         if (!container) return;
 
-        if (ecommerceData.orders.length === 0) {
+        if (!this.data.orders || this.data.orders.length === 0) {
             container.innerHTML = `
                 <div class="col-12">
                     <div class="empty-state">

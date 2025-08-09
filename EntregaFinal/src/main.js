@@ -14,12 +14,10 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import './css/styles.css'
 
 // Importar módulos de la aplicación
-import { ecommerceData } from './js/data.js'
 import { Utils } from './js/utils.js'
 import './js/app.js'
 
-// Hacer disponibles globalmente para compatibilidad
-window.ecommerceData = ecommerceData
+// (Opcional) Exponer Utils globalmente si se necesita en el HTML
 window.Utils = Utils
 
 // Mensaje de confirmación de carga
