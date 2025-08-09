@@ -8,7 +8,7 @@
  */
 
 // Importar dependencias
-import { ecommerceData } from './data.js';
+import { loadEcommerceData } from './data.js';
 import { Utils } from './utils.js';
 
 // Estado global de la aplicación (donde guardamos todo lo que pasa)
@@ -100,7 +100,7 @@ class AppState {
 
     // Métodos para manejar los filtros de productos
     applyFilters() {
-        return Utils.filterProducts(ecommerceData.products, this.filters);
+        return Utils.filterProducts(app.data.products, this.filters);
     }
 }
 
@@ -116,8 +116,26 @@ class TechStoreApp {
     init() {
         this.loadCartFromStorage();
         this.setupEventListeners();
-        this.renderHome();
-        this.updateUserInfo();
+        this.bootstrapAsync();
+    }
+
+    async bootstrapAsync() {
+        try {
+            // Mostrar una carga breve
+            Utils.showLoadingMessage('Cargando catálogo...');
+            this.data = await loadEcommerceData();
+            // Asignar usuario al estado
+            appState.user = this.data.user;
+            // Render inicial
+            this.renderHome();
+            this.updateUserInfo();
+        } catch (err) {
+            Utils.showErrorMessage('No pudimos cargar los datos. Reintentá más tarde.');
+            console.error(err);
+        } finally {
+            // Cerrar loader con un pequeño delay para UX
+            setTimeout(() => Swal.close(), 400);
+        }
     }
 
     loadCartFromStorage() {
@@ -188,7 +206,7 @@ class TechStoreApp {
         const container = document.getElementById('categoriesContainer');
         if (!container) return;
 
-        const categoriesHTML = ecommerceData.categories.map(category => `
+        const categoriesHTML = this.data.categories.map(category => `
             <div class="col-md-4 col-lg-2 mb-3">
                 <div class="card category-card h-100" onclick="app.renderProductsByCategory(${category.id})">
                     <div class="card-body">
@@ -207,7 +225,7 @@ class TechStoreApp {
         const container = document.getElementById('featuredProductsContainer');
         if (!container) return;
 
-        const featuredProducts = Utils.getFeaturedProducts();
+        const featuredProducts = this.data.products.filter(p => p.featured);
         const productsHTML = featuredProducts.map(product => this.createProductCard(product)).join('');
 
         container.innerHTML = productsHTML;
@@ -241,7 +259,7 @@ class TechStoreApp {
         let breadcrumbHTML = '<li class="breadcrumb-item"><a href="#" id="homeBreadcrumb">Inicio</a></li>';
         
         if (appState.currentCategory) {
-            const category = Utils.getCategoryById(appState.currentCategory);
+            const category = this.data.categories.find(cat => cat.id === appState.currentCategory);
             if (category) {
                 breadcrumbHTML += `<li class="breadcrumb-item active">${category.name}</li>`;
             }
@@ -260,7 +278,7 @@ class TechStoreApp {
         const container = document.getElementById('categoryFilters');
         if (!container) return;
 
-        const filtersHTML = ecommerceData.categories.map(category => `
+        const filtersHTML = this.data.categories.map(category => `
             <div class="category-filter-item">
                 <input type="checkbox" id="cat-${category.id}" value="${category.id}">
                 <label for="cat-${category.id}">${category.name}</label>
@@ -270,7 +288,7 @@ class TechStoreApp {
         container.innerHTML = filtersHTML;
 
         // Configurar los eventos de los checkboxes
-        ecommerceData.categories.forEach(category => {
+        this.data.categories.forEach(category => {
             const checkbox = document.getElementById(`cat-${category.id}`);
             if (checkbox) {
                 checkbox.addEventListener('change', (e) => {
@@ -307,7 +325,7 @@ class TechStoreApp {
     }
 
     createProductCard(product) {
-        const category = Utils.getCategoryById(product.category);
+        const category = this.data.categories.find(cat => cat.id === product.category);
         return `
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card product-card h-100">
@@ -339,7 +357,7 @@ class TechStoreApp {
         document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const productId = parseInt(e.target.dataset.productId);
-                const product = Utils.getProductById(productId);
+                const product = this.data.products.find(p => p.id === productId);
                 
                 if (product) {
                     appState.addToCart(product, 1);
@@ -483,7 +501,8 @@ class TechStoreApp {
             const shippingAddress = `${formData.address}, ${formData.city}`;
             const newOrder = Utils.createOrder(appState.cart, shippingAddress);
 
-            ecommerceData.orders.push(newOrder);
+            if (!this.data.orders) this.data.orders = [];
+            this.data.orders.push(newOrder);
 
             // Vaciar el carrito
             appState.cart = [];
@@ -528,13 +547,13 @@ class TechStoreApp {
             return;
         }
 
-        const ordersHTML = ecommerceData.orders.map(order => this.createOrderCard(order)).join('');
+        const ordersHTML = (this.data.orders || []).map(order => this.createOrderCard(order)).join('');
         container.innerHTML = ordersHTML;
     }
 
     createOrderCard(order) {
         const orderItems = order.items.map(item => {
-            const product = Utils.getProductById(item.productId);
+            const product = this.data.products.find(p => p.id === item.productId);
             return `${product?.name || 'Producto no encontrado'} (x${item.quantity})`;
         }).join(', ');
 
@@ -573,8 +592,8 @@ class TechStoreApp {
     }
 
     updateProfileStats() {
-        const totalOrders = ecommerceData.orders.length;
-        const totalSpent = ecommerceData.orders.reduce((total, order) => total + order.total, 0);
+        const totalOrders = (this.data.orders || []).length;
+        const totalSpent = (this.data.orders || []).reduce((total, order) => total + order.total, 0);
 
         document.getElementById('totalOrders').textContent = totalOrders;
         document.getElementById('totalSpent').textContent = Utils.formatPrice(totalSpent);
@@ -639,7 +658,5 @@ class TechStoreApp {
     }
 }
 
-// Arrancar la aplicación cuando la página esté lista
-document.addEventListener('DOMContentLoaded', () => {
-    window.app = new TechStoreApp();
-}); 
+// Inicializar la app de inmediato para que esté disponible en window
+window.app = new TechStoreApp(); 
