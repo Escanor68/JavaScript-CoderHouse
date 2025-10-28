@@ -160,10 +160,11 @@ class Utils {
 
     /**
      * Crea un ID nuevo para un pedido
+     * @param {Array} orders - Array de pedidos existentes
      * @returns {number} Nuevo ID
      */
-    static generateOrderId() {
-        return ecommerceData.orders.length + 1;
+    static generateOrderId(orders = []) {
+        return orders.length + 1;
     }
 
     /**
@@ -178,14 +179,15 @@ class Utils {
      * Arma un pedido nuevo con los productos del carrito
      * @param {Array} cart - Carrito de compras
      * @param {string} shippingAddress - Dirección de envío
+     * @param {Array} orders - Array de pedidos existentes para generar ID
      * @returns {Object} Nuevo pedido
      */
-    static createOrder(cart, shippingAddress) {
+    static createOrder(cart, shippingAddress, orders = []) {
         const subtotal = this.calculateCartTotal(cart);
         const { total } = this.calculateCosts(subtotal);
 
         return {
-            id: this.generateOrderId(),
+            id: this.generateOrderId(orders),
             date: this.getCurrentDate(),
             status: 'pending',
             items: cart.map(item => ({

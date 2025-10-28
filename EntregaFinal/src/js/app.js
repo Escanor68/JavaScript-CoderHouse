@@ -589,7 +589,7 @@ class TechStoreApp {
         setTimeout(() => {
             // Armar el pedido nuevo
             const shippingAddress = `${formData.address}, ${formData.city}`;
-            const newOrder = Utils.createOrder(appState.cart, shippingAddress);
+            const newOrder = Utils.createOrder(appState.cart, shippingAddress, this.data.orders || []);
 
             if (!this.data.orders) this.data.orders = [];
             this.data.orders.push(newOrder);
