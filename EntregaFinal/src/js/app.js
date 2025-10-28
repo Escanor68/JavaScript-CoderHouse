@@ -144,6 +144,21 @@ class TechStoreApp {
 
     setupEventListeners() {
         // Configurar todos los eventos de navegación
+        document.getElementById('homeNavLink')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.renderHome();
+        });
+
+        document.getElementById('productsNavLink')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.renderProducts();
+        });
+
+        document.getElementById('heroProductsBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.renderProducts();
+        });
+
         document.getElementById('homeBreadcrumb')?.addEventListener('click', (e) => {
             e.preventDefault();
             this.renderHome();
@@ -209,7 +224,7 @@ class TechStoreApp {
 
         const categoriesHTML = this.data.categories.map(category => `
             <div class="col-md-4 col-lg-2 mb-3">
-                <div class="card category-card h-100" onclick="app.renderProductsByCategory(${category.id})">
+                <div class="card category-card h-100" data-category-id="${category.id}">
                     <div class="card-body">
                         <i class="${category.icon} category-icon"></i>
                         <h6 class="card-title">${category.name}</h6>
@@ -220,6 +235,14 @@ class TechStoreApp {
         `).join('');
 
         container.innerHTML = categoriesHTML;
+
+        // Configurar eventos para las categorías
+        container.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const categoryId = parseInt(card.dataset.categoryId);
+                this.renderProductsByCategory(categoryId);
+            });
+        });
     }
 
     renderFeaturedProducts() {
@@ -410,11 +433,16 @@ class TechStoreApp {
                     <i class="fas fa-shopping-cart"></i>
                     <h4>Tu carrito está vacío</h4>
                     <p>Agrega algunos productos para comenzar</p>
-                    <button class="btn btn-primary" onclick="app.renderHome()">
+                    <button class="btn btn-primary" id="continueShoppingBtn">
                         Continuar Comprando
                     </button>
                 </div>
             `;
+            
+            // Configurar evento para el botón de continuar comprando
+            document.getElementById('continueShoppingBtn')?.addEventListener('click', () => {
+                this.renderHome();
+            });
             return;
         }
 
@@ -426,18 +454,18 @@ class TechStoreApp {
                     <p class="cart-item-price mb-0">${Utils.formatPrice(item.product.price)}</p>
                 </div>
                 <div class="quantity-controls me-3">
-                    <button class="quantity-btn" onclick="app.updateCartQuantity(${item.product.id}, ${item.quantity - 1})">
+                    <button class="quantity-btn decrease-btn" data-product-id="${item.product.id}">
                         <i class="fas fa-minus"></i>
                     </button>
                     <input type="number" class="quantity-input" value="${item.quantity}" min="1" 
-                           onchange="app.updateCartQuantity(${item.product.id}, parseInt(this.value))">
-                    <button class="quantity-btn" onclick="app.updateCartQuantity(${item.product.id}, ${item.quantity + 1})">
+                           data-product-id="${item.product.id}">
+                    <button class="quantity-btn increase-btn" data-product-id="${item.product.id}">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
                 <div class="text-end">
                     <div class="fw-bold">${Utils.formatPrice(item.product.price * item.quantity)}</div>
-                    <button class="btn btn-sm btn-outline-danger" onclick="app.removeFromCart(${item.product.id})">
+                    <button class="btn btn-sm btn-outline-danger remove-item-btn" data-product-id="${item.product.id}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -445,6 +473,42 @@ class TechStoreApp {
         `).join('');
 
         container.innerHTML = cartItemsHTML;
+
+        // Configurar eventos para los controles de cantidad
+        container.querySelectorAll('.decrease-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.closest('.decrease-btn').dataset.productId);
+                const item = appState.cart.find(item => item.product.id === productId);
+                if (item) {
+                    this.updateCartQuantity(productId, item.quantity - 1);
+                }
+            });
+        });
+
+        container.querySelectorAll('.increase-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.closest('.increase-btn').dataset.productId);
+                const item = appState.cart.find(item => item.product.id === productId);
+                if (item) {
+                    this.updateCartQuantity(productId, item.quantity + 1);
+                }
+            });
+        });
+
+        container.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const productId = parseInt(e.target.dataset.productId);
+                const quantity = parseInt(e.target.value);
+                this.updateCartQuantity(productId, quantity);
+            });
+        });
+
+        container.querySelectorAll('.remove-item-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productId = parseInt(e.target.closest('.remove-item-btn').dataset.productId);
+                this.removeFromCart(productId);
+            });
+        });
     }
 
     updateCartSummary() {
@@ -564,12 +628,17 @@ class TechStoreApp {
                         <i class="fas fa-box"></i>
                         <h4>No tienes pedidos</h4>
                         <p>Realiza tu primera compra para ver tus pedidos aquí</p>
-                        <button class="btn btn-primary" onclick="app.renderHome()">
+                        <button class="btn btn-primary" id="startShoppingBtn">
                             Comenzar a Comprar
                         </button>
                     </div>
                 </div>
             `;
+            
+            // Configurar evento para el botón de comenzar a comprar
+            document.getElementById('startShoppingBtn')?.addEventListener('click', () => {
+                this.renderHome();
+            });
             return;
         }
 
